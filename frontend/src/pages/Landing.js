@@ -64,8 +64,8 @@ export default function Landing() {
             <div className="relative">
               <div className="card p-8 shadow-2xl">
                 <img 
-                  src="https://images.unsplash.com/photo-1760597371592-09e901b7317d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBtaW5pbWFsaXN0JTIwd29ya3NwYWNlJTIwY2xlYW4lMjBkZXNrfGVufDB8fHx8MTc2Nzc2OTU4NXww&ixlib=rb-4.1.0&q=85"
-                  alt="Professional workspace"
+                  src="https://images.unsplash.com/photo-1635253548172-d82ffe76449d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NjZ8MHwxfHNlYXJjaHw0fHxwcm9mZXNzaW9uYWwlMjByZXN1bWUlMjBqb2IlMjBhcHBsaWNhdGlvbiUyMGRvY3VtZW50fGVufDB8fHx8MTc2Nzc3MDY1M3ww&ixlib=rb-4.1.0&q=85"
+                  alt="Professional resume documents"
                   className="rounded-lg w-full"
                 />
               </div>
