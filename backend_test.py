@@ -182,6 +182,114 @@ class LyncatAPITester:
             return True, response['id']
         return False, None
 
+    def test_skills_functionality(self):
+        """Test skills array handling - the main bug fix"""
+        print("\n🎯 Testing Skills Functionality (Bug Fix)")
+        
+        # Test 1: Create resume with skills array
+        skills_test_data = {
+            "title": "Skills Test Resume",
+            "template": "modern",
+            "data": {
+                "personal_info": {
+                    "full_name": "Skills Tester",
+                    "email": "skills@test.com"
+                },
+                "skills": ["JavaScript", "Python", "React", "Node.js", "Docker"]
+            }
+        }
+        
+        success, response = self.run_test(
+            "Create Resume with Skills Array",
+            "POST",
+            "resumes",
+            200,
+            data=skills_test_data
+        )
+        
+        if not success:
+            return False, None
+            
+        resume_id = response.get('id')
+        if not resume_id:
+            self.log_test("Skills Test - Resume ID", False, "No resume ID returned")
+            return False, None
+            
+        # Verify skills are stored correctly
+        if 'data' in response and 'skills' in response['data']:
+            stored_skills = response['data']['skills']
+            expected_skills = ["JavaScript", "Python", "React", "Node.js", "Docker"]
+            if stored_skills == expected_skills:
+                self.log_test("Skills Array Storage", True)
+            else:
+                self.log_test("Skills Array Storage", False, f"Expected {expected_skills}, got {stored_skills}")
+        else:
+            self.log_test("Skills Array Storage", False, "Skills not found in response")
+            
+        # Test 2: Update resume with different skills
+        update_skills_data = {
+            "data": {
+                "skills": ["TypeScript", "Vue.js", "Angular", "MongoDB", "PostgreSQL"]
+            }
+        }
+        
+        success, response = self.run_test(
+            "Update Resume Skills",
+            "PUT",
+            f"resumes/{resume_id}",
+            200,
+            data=update_skills_data
+        )
+        
+        if success and 'data' in response and 'skills' in response['data']:
+            updated_skills = response['data']['skills']
+            expected_updated = ["TypeScript", "Vue.js", "Angular", "MongoDB", "PostgreSQL"]
+            if updated_skills == expected_updated:
+                self.log_test("Skills Update", True)
+            else:
+                self.log_test("Skills Update", False, f"Expected {expected_updated}, got {updated_skills}")
+        else:
+            self.log_test("Skills Update", False, "Skills update failed")
+            
+        # Test 3: Empty skills array
+        empty_skills_data = {
+            "data": {
+                "skills": []
+            }
+        }
+        
+        success, response = self.run_test(
+            "Update Resume with Empty Skills",
+            "PUT",
+            f"resumes/{resume_id}",
+            200,
+            data=empty_skills_data
+        )
+        
+        if success:
+            self.log_test("Empty Skills Array", True)
+        else:
+            self.log_test("Empty Skills Array", False, "Failed to handle empty skills")
+            
+        # Test 4: Retrieve and verify skills persistence
+        success, response = self.run_test(
+            "Verify Skills Persistence",
+            "GET",
+            f"resumes/{resume_id}",
+            200
+        )
+        
+        if success and 'data' in response and 'skills' in response['data']:
+            retrieved_skills = response['data']['skills']
+            if retrieved_skills == []:
+                self.log_test("Skills Persistence", True)
+            else:
+                self.log_test("Skills Persistence", False, f"Expected empty array, got {retrieved_skills}")
+        else:
+            self.log_test("Skills Persistence", False, "Failed to retrieve skills")
+            
+        return True, resume_id
+
     def test_get_resumes(self):
         """Test get all resumes"""
         success, response = self.run_test(
