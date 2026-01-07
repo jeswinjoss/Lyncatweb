@@ -56,7 +56,7 @@ export default function MinimalTemplate({ data }) {
           <h2 style={{fontFamily: 'Outfit', fontSize: '14px', fontWeight: '700', color: '#1E293B', marginBottom: '12px', letterSpacing: '1px', textTransform: 'uppercase'}}>Skills</h2>
           <div style={{paddingLeft: '16px', borderLeft: '2px solid #E2E8F0'}}>
             <p style={{fontSize: '14px', lineHeight: '1.8', color: '#475569'}}>
-              {data.skills.join(" • ")}
+              {data.skills.filter(skill => skill && skill.trim()).join(" • ")}
             </p>
           </div>
         </div>
