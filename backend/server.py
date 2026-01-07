@@ -211,7 +211,7 @@ async def create_resume(resume_data: ResumeCreate, current_user: Dict[str, Any] 
 
 @api_router.get("/resumes", response_model=List[Resume])
 async def get_resumes(current_user: Dict[str, Any] = Depends(get_current_user)):
-    resumes = await db.resumes.find({"user_id": current_user["id"]}, {"_id": 0}).to_list(1000)
+    resumes = await db.resumes.find({"user_id": current_user["id"]}, {"_id": 0}).to_list(None)
     return [Resume(**r) for r in resumes]
 
 @api_router.get("/resumes/{resume_id}", response_model=Resume)
