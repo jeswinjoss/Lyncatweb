@@ -60,7 +60,7 @@ export default function ModernTemplate({ data }) {
         <div>
           <h2 style={{fontFamily: 'Outfit', fontSize: '20px', fontWeight: '600', color: '#4F46E5', marginBottom: '12px'}}>SKILLS</h2>
           <div style={{display: 'flex', flexWrap: 'wrap', gap: '8px'}}>
-            {data.skills.map((skill, index) => (
+            {data.skills.filter(skill => skill && skill.trim()).map((skill, index) => (
               <span key={index} style={{backgroundColor: '#EEF2FF', color: '#4F46E5', padding: '6px 12px', borderRadius: '6px', fontSize: '13px'}}>
                 {skill}
               </span>
