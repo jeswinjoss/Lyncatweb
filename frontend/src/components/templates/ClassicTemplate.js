@@ -58,7 +58,7 @@ export default function ClassicTemplate({ data }) {
         <div>
           <h2 style={{fontFamily: 'Outfit', fontSize: '18px', fontWeight: '600', color: '#1E293B', marginBottom: '12px', textTransform: 'uppercase', borderBottom: '1px solid #CBD5E1', paddingBottom: '6px'}}>Skills</h2>
           <p style={{fontSize: '14px', lineHeight: '1.8', color: '#475569'}}>
-            {data.skills.join(" • ")}
+            {data.skills.filter(skill => skill && skill.trim()).join(" • ")}
           </p>
         </div>
       )}
