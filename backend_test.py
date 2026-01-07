@@ -398,6 +398,9 @@ class LyncatAPITester:
             # Keep resume for frontend testing, don't delete yet
             # self.test_delete_resume(resume_id)
         
+        # Test skills functionality (main bug fix)
+        skills_success, skills_resume_id = self.test_skills_functionality()
+        
         # Test error handling
         self.test_invalid_endpoints()
         
