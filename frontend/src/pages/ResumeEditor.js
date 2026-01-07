@@ -22,6 +22,7 @@ export default function ResumeEditor({ user, onLogout }) {
   const { id } = useParams();
   const previewRef = useRef();
   const [loading, setLoading] = useState(false);
+  const [skillsText, setSkillsText] = useState("");
   const [resumeData, setResumeData] = useState({
     title: "My Resume",
     template: "modern",
