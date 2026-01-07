@@ -420,9 +420,11 @@ export default function ResumeEditor({ user, onLogout }) {
                 <Label>Skills (comma-separated)</Label>
                 <Textarea
                   value={skillsText}
-                  onChange={(e) => setSkillsText(e.target.value)}
-                  onBlur={(e) => {
-                    const skillsArray = e.target.value.split(",").map(s => s.trim()).filter(Boolean);
+                  onChange={(e) => {
+                    const newText = e.target.value;
+                    setSkillsText(newText);
+                    // Parse skills for live preview
+                    const skillsArray = newText.split(",").map(s => s.trim()).filter(Boolean);
                     setResumeData({...resumeData, data: {...resumeData.data, skills: skillsArray}});
                   }}
                   placeholder="JavaScript, React, Node.js, Python"
