@@ -49,6 +49,13 @@ export default function ResumeEditor({ user, onLogout }) {
     }
   }, [id]);
 
+  useEffect(() => {
+    // Update skillsText when resumeData.data.skills changes (e.g., on load)
+    if (Array.isArray(resumeData.data.skills)) {
+      setSkillsText(resumeData.data.skills.join(", "));
+    }
+  }, [resumeData.data.skills]);
+
   const fetchResume = async () => {
     try {
       const token = localStorage.getItem("token");
