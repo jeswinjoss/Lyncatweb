@@ -49,12 +49,12 @@ export default function ResumeEditor({ user, onLogout }) {
     }
   }, [id]);
 
+  // Only initialize skillsText when resumeData is first loaded
   useEffect(() => {
-    // Update skillsText when resumeData.data.skills changes (e.g., on load)
-    if (Array.isArray(resumeData.data.skills)) {
+    if (Array.isArray(resumeData.data.skills) && skillsText === "") {
       setSkillsText(resumeData.data.skills.join(", "));
     }
-  }, [resumeData.data.skills]);
+  }, [resumeData.data.skills, skillsText]);
 
   const fetchResume = async () => {
     try {
@@ -63,6 +63,10 @@ export default function ResumeEditor({ user, onLogout }) {
         headers: { Authorization: `Bearer ${token}` }
       });
       setResumeData(response.data);
+      // Set skillsText when loading resume
+      if (response.data.data.skills) {
+        setSkillsText(response.data.data.skills.join(", "));
+      }
     } catch (error) {
       toast.error("Failed to load resume");
       navigate("/dashboard");
