@@ -411,8 +411,12 @@ export default function ResumeEditor({ user, onLogout }) {
               <div>
                 <Label>Skills (comma-separated)</Label>
                 <Textarea
-                  value={resumeData.data.skills.join(", ")}
-                  onChange={(e) => setResumeData({...resumeData, data: {...resumeData.data, skills: e.target.value.split(",").map(s => s.trim()).filter(Boolean)}})}
+                  value={Array.isArray(resumeData.data.skills) ? resumeData.data.skills.join(", ") : ""}
+                  onChange={(e) => {
+                    const skillsText = e.target.value;
+                    const skillsArray = skillsText.split(",").map(s => s.trim()).filter(Boolean);
+                    setResumeData({...resumeData, data: {...resumeData.data, skills: skillsArray}});
+                  }}
                   placeholder="JavaScript, React, Node.js, Python"
                   rows={3}
                   data-testid="skills-field"
